@@ -1,19 +1,25 @@
+import { FormEvent } from 'react';
+
 export default function App() {
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const file = formData.get('file');
+    if (!(file instanceof File)) throw new Error('file is not a file');
+
+    const url = URL.createObjectURL(file);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = file.name;
+    anchor.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
-    <>
-      <h1>dayum</h1>
-      <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit hic
-        fugiat natus quo id nobis molestiae eveniet voluptate facilis nulla
-        placeat, et non sunt porro ullam, maxime neque velit cum? Temporibus
-        quibusdam obcaecati tempore voluptatibus voluptatem, dolorem quae
-        nesciunt voluptate recusandae nobis perferendis impedit dignissimos
-        culpa consequuntur ex eligendi deleniti dolorum doloremque, nulla eos
-        possimus autem aliquid? Modi, laudantium labore? Possimus consequatur
-        ducimus veritatis! Nostrum itaque debitis ipsum distinctio nulla facilis
-        et rem eos modi porro vero cumque asperiores voluptatum saepe odit,
-        deleniti amet illo sequi blanditiis? Consectetur, velit consequuntur.
-      </p>
-    </>
+    <form onSubmit={onSubmit}>
+      <label htmlFor="file">Input:</label>
+      <input id="file" type="file" name="file" />
+      <button type="submit">Convert...</button>
+    </form>
   );
 }
