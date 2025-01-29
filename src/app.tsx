@@ -12,16 +12,18 @@ export default function App() {
     ffmpeg.load().then(() => setState('idle'));
   }, []);
 
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const file = formData.get('file');
     if (!(file instanceof File)) throw new Error('file is not a file');
 
-    const url = URL.createObjectURL(file);
+    const ffmpeg = ffmpegRef.current;
+    const output = await transcodeFile(ffmpeg, file);
+    const url = URL.createObjectURL(output);
     const anchor = document.createElement('a');
     anchor.href = url;
-    anchor.download = file.name;
+    anchor.download = output.name;
     anchor.click();
     URL.revokeObjectURL(url);
   };
@@ -35,4 +37,13 @@ export default function App() {
       <button type="submit">Convert...</button>
     </form>
   );
+}
+
+async function transcodeFile(ffmpeg: FFmpeg, file: File) {
+  const arrayBuf = await file.arrayBuffer();
+  const inputBytes = new Uint8Array(arrayBuf);
+  await ffmpeg.writeFile(file.name, inputBytes);
+  await ffmpeg.exec(['-i', file.name, 'output.mkv']);
+  const outputBytes = await ffmpeg.readFile('output.mkv');
+  return new File([outputBytes], 'output.mkv', { type: 'video/x-matroska' });
 }
