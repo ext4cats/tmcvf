@@ -2,7 +2,7 @@ import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import styles from './app.module.css';
 
-type AppState = 'loading' | 'idle';
+type AppState = 'loading' | 'idle' | 'working';
 
 export default function App() {
   const ffmpegRef = useRef(createFFmpeg());
@@ -14,6 +14,8 @@ export default function App() {
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (state === 'working') return;
+    setState('working');
     const formData = new FormData(event.currentTarget);
     const file = formData.get('file');
     if (!(file instanceof File)) throw new Error('file is not a file');
@@ -30,27 +32,44 @@ export default function App() {
     anchor.download = output.name;
     anchor.click();
     URL.revokeObjectURL(url);
+    setState('idle');
   };
 
-  return state === 'loading' ? (
-    <p>Loading...</p>
-  ) : (
+  return (
     <div className={styles.container}>
-      <form className={styles.form} onSubmit={onSubmit}>
-        <label htmlFor="file">Input:</label>
-        <input id="file" type="file" name="file" />
-        <label htmlFor="format">Format:</label>
-        <select id="format" name="format">
-          {Object.keys(mimeTypes).map((value, idx) => (
-            <option key={idx} value={value}>
-              {value}
-            </option>
-          ))}
-        </select>
-        <button className={styles.submit} type="submit">
-          Convert...
-        </button>
-      </form>
+      <header className={styles.header}>
+        <h1>tmcvf</h1>
+        <p>A tiny video converter powered by ffmpeg.wasm</p>
+      </header>
+      <main>
+        {state === 'loading' ? (
+          <div className={styles.progressbar}>
+            <label htmlFor="loadingbar">Loading...</label>
+            <progress id="loadingbar" />
+          </div>
+        ) : state === 'working' ? (
+          <div className={styles.progressbar}>
+            <label htmlFor="workingbar">Transcoding...</label>
+            <progress id="workingbar" />
+          </div>
+        ) : (
+          <form className={styles.form} onSubmit={onSubmit}>
+            <label htmlFor="file">Input:</label>
+            <input id="file" type="file" name="file" />
+            <label htmlFor="format">Format:</label>
+            <select id="format" name="format">
+              {Object.keys(mimeTypes).map((value, idx) => (
+                <option key={idx} value={value}>
+                  {value}
+                </option>
+              ))}
+            </select>
+            <button className={styles.submit} type="submit">
+              Convert...
+            </button>
+          </form>
+        )}
+      </main>
     </div>
   );
 }

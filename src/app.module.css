@@ -9,13 +9,40 @@ body {
 }
 
 .container {
-  max-width: 350px;
+  max-width: 400px;
   margin-inline: auto;
   padding-inline: 1rem;
 }
 
+.loadingmsg {
+  text-align: center;
+}
+
+.progressbar {
+  text-align: center;
+}
+
+.progressbar > * {
+  display: block;
+  width: 100%;
+}
+
+.header {
+  margin-top: 6rem;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.header > h1 {
+  margin: 0;
+}
+
+.header > p {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
 .form {
-  margin-top: 12rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
