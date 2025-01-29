@@ -10,9 +10,14 @@ First, download the web workers for ffmpeg.wasm from UNPKG. [Serving the worker 
 pnpm install-workers
 ```
 
-Then install the package dependencies and run the development server.
+Then install the package dependencies and build the site.
 
 ```bash
 pnpm install
+
+# Do a production build.
+pnpm build
+
+# ...or run the dev server.
 pnpm dev
 ```
