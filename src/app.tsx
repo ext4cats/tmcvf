@@ -1,5 +1,6 @@
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { FormEvent, useEffect, useRef, useState } from 'react';
+import styles from './app.module.css';
 
 type AppState = 'loading' | 'idle';
 
@@ -34,19 +35,23 @@ export default function App() {
   return state === 'loading' ? (
     <p>Loading...</p>
   ) : (
-    <form onSubmit={onSubmit}>
-      <label htmlFor="file">Input:</label>
-      <input id="file" type="file" name="file" />
-      <label htmlFor="format">Format:</label>
-      <select id="format" name="format">
-        {Object.keys(mimeTypes).map((value, idx) => (
-          <option key={idx} value={value}>
-            {value}
-          </option>
-        ))}
-      </select>
-      <button type="submit">Convert...</button>
-    </form>
+    <div className={styles.container}>
+      <form className={styles.form} onSubmit={onSubmit}>
+        <label htmlFor="file">Input:</label>
+        <input id="file" type="file" name="file" />
+        <label htmlFor="format">Format:</label>
+        <select id="format" name="format">
+          {Object.keys(mimeTypes).map((value, idx) => (
+            <option key={idx} value={value}>
+              {value}
+            </option>
+          ))}
+        </select>
+        <button className={styles.submit} type="submit">
+          Convert...
+        </button>
+      </form>
+    </div>
   );
 }
 

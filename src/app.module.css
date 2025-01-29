@@ -1,0 +1,26 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+.container {
+  max-width: 350px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+.form {
+  margin-top: 12rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.submit {
+  grid-column: 1 / 3;
+}
