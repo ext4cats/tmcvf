@@ -4,7 +4,13 @@ Very basic online video converter using [ffmpeg.wasm](https://ffmpegwasm.netlify
 
 ## Building
 
-No fancy steps here luckily. Just install dependencies and go.
+First, download the web workers for ffmpeg.wasm from UNPKG. [Serving the worker locally is required for multi-threading to work.](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer#security_requirements) Make sure you have cURL installed.
+
+```bash
+pnpm install-workers
+```
+
+Then install the package dependencies and run the development server.
 
 ```bash
 pnpm install
