@@ -1,6 +1,17 @@
-import { FormEvent } from 'react';
+import { FFmpeg } from '@ffmpeg/ffmpeg';
+import { FormEvent, useEffect, useRef, useState } from 'react';
+
+type AppState = 'loading' | 'idle';
 
 export default function App() {
+  const ffmpegRef = useRef(new FFmpeg());
+  const [state, setState] = useState<AppState>('loading');
+  useEffect(() => {
+    const ffmpeg = ffmpegRef.current;
+    ffmpeg.on('log', (event) => console.log(event.message));
+    ffmpeg.load().then(() => setState('idle'));
+  }, []);
+
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -15,7 +26,9 @@ export default function App() {
     URL.revokeObjectURL(url);
   };
 
-  return (
+  return state === 'loading' ? (
+    <p>Loading...</p>
+  ) : (
     <form onSubmit={onSubmit}>
       <label htmlFor="file">Input:</label>
       <input id="file" type="file" name="file" />
