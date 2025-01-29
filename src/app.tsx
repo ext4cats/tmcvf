@@ -4,11 +4,10 @@ import { FormEvent, useEffect, useRef, useState } from 'react';
 type AppState = 'loading' | 'idle';
 
 export default function App() {
-  const ffmpegRef = useRef(new FFmpeg());
+  const ffmpegRef = useRef(createFFmpeg());
   const [state, setState] = useState<AppState>('loading');
   useEffect(() => {
     const ffmpeg = ffmpegRef.current;
-    ffmpeg.on('log', (event) => console.log(event.message));
     ffmpeg.load().then(() => setState('idle'));
   }, []);
 
@@ -46,4 +45,10 @@ async function transcodeFile(ffmpeg: FFmpeg, file: File) {
   await ffmpeg.exec(['-i', file.name, 'output.mkv']);
   const outputBytes = await ffmpeg.readFile('output.mkv');
   return new File([outputBytes], 'output.mkv', { type: 'video/x-matroska' });
+}
+
+function createFFmpeg() {
+  const ffmpeg = new FFmpeg();
+  ffmpeg.on('log', (event) => console.log(event.message));
+  return ffmpeg;
 }
