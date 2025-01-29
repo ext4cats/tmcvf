@@ -9,7 +9,9 @@ export default function App() {
   const [state, setState] = useState<AppState>('loading');
   useEffect(() => {
     const ffmpeg = ffmpegRef.current;
-    ffmpeg.load().then(() => setState('idle'));
+    ffmpeg
+      .load({ workerURL: '/ffmpeg-core.worker.js' })
+      .then(() => setState('idle'));
   }, []);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {

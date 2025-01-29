@@ -1,3 +1,6 @@
+# ffmpeg workers
+/public/ffmpeg-core.worker.js
+
 # Logs
 logs
 *.log
