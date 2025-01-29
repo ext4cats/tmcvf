@@ -37,6 +37,7 @@ export default function App() {
     <form onSubmit={onSubmit}>
       <label htmlFor="file">Input:</label>
       <input id="file" type="file" name="file" />
+      <label htmlFor="format">Format:</label>
       <select id="format" name="format">
         {Object.keys(mimeTypes).map((value, idx) => (
           <option key={idx} value={value}>
