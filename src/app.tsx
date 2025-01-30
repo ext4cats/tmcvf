@@ -76,6 +76,13 @@ export default function App() {
             </button>
           </form>
         )}
+        <footer className={styles.footer}>
+          <p>
+            warning: this converter lacks hardware acceleration, and as such, is
+            very CPU intensive. for heavier workloads, please{' '}
+            <a href="https://www.ffmpeg.org/">use ffmpeg directly</a>.
+          </p>
+        </footer>
       </main>
     </div>
   );
