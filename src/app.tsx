@@ -9,8 +9,13 @@ export default function App() {
   const [state, setState] = useState<AppState>('loading');
   useEffect(() => {
     const ffmpeg = ffmpegRef.current;
+    const cdn = 'https://unpkg.com/@ffmpeg/core-mt@0.12.6/dist/esm';
     ffmpeg
-      .load({ workerURL: '/ffmpeg-core.worker.js' })
+      .load({
+        coreURL: `${cdn}/ffmpeg-core.js`,
+        wasmURL: `${cdn}/ffmpeg-core.wasm`,
+        workerURL: '/ffmpeg-core.worker.js',
+      })
       .then(() => setState('idle'));
   }, []);
 
