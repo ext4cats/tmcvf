@@ -1,6 +1,6 @@
 # This Machine Converts Video Formats
 
-Very basic online video converter using [ffmpeg.wasm](https://ffmpegwasm.netlify.app/).
+A tiny video converter powered by [ffmpeg.wasm](https://ffmpegwasm.netlify.app/).
 
 ## Building
 
