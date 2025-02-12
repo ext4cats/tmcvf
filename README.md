@@ -27,7 +27,7 @@ Multi-threading is [currently broken](https://github.com/ffmpegwasm/ffmpeg.wasm/
 
 ### Security requirements
 
-The multi-threaded version of ffmpeg.wasm requires [`SharedArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer#security_requirements). To make `SharedArrayBuffer` properly available to the underlying library, the following headers must be set in when serving the web page.
+The multi-threaded version of ffmpeg.wasm requires [`SharedArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer#security_requirements). To make `SharedArrayBuffer` properly available to the underlying library, the following headers must be set when serving the web page.
 
 ```http
 Cross-Origin-Embedder-Policy: require-corp
