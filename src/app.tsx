@@ -4,7 +4,8 @@ import { FormEvent, useEffect, useRef, useState } from 'react';
 type AppState = 'loading' | 'idle' | 'working';
 
 export default function App() {
-  const ffmpegRef = useRef(createFFmpeg());
+  const ffmpegRef = useRef<FFmpeg | null>(null);
+  if (ffmpegRef.current === null) ffmpegRef.current = createFFmpeg();
   const [state, setState] = useState<AppState>('loading');
   useEffect(() => {
     const ffmpeg = ffmpegRef.current;
@@ -18,7 +19,7 @@ export default function App() {
         }
       })
       .then((workerURL) =>
-        ffmpeg
+        ffmpeg!
           .load({
             coreURL: `${cdn}/ffmpeg-core.js`,
             wasmURL: `${cdn}/ffmpeg-core.wasm`,
@@ -41,7 +42,7 @@ export default function App() {
       throw new Error(`unrecognized format: ${format}`);
 
     const ffmpeg = ffmpegRef.current;
-    const output = await transcodeFile(ffmpeg, file, format);
+    const output = await transcodeFile(ffmpeg!, file, format);
     const url = URL.createObjectURL(output);
     const anchor = document.createElement('a');
     anchor.href = url;
