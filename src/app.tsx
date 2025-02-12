@@ -1,4 +1,5 @@
-import { supportedTypes } from './hooks/use-ffmpeg';
+import ConvertForm from './components/convert-form';
+import ModeSelector from './components/mode-selector';
 
 export default function App() {
   return (
@@ -8,26 +9,8 @@ export default function App() {
         <p>a tiny video converter powered by ffmpeg.wasm</p>
       </header>
       <main>
-        <fieldset>
-          <legend>Select a mode:</legend>
-          <label htmlFor="single-thread">Single-thread</label>
-          <input type="radio" id="single-thread" />
-          <label htmlFor="multi-thread">Multi-thread</label>
-          <input type="radio" id="multi-thread" />
-        </fieldset>
-        <form>
-          <label htmlFor="file">Input:</label>
-          <input type="file" name="file" id="file" />
-          <label htmlFor="format">Format:</label>
-          <select name="format" id="format">
-            {Object.keys(supportedTypes).map((format, idx) => (
-              <option key={idx} value={format}>
-                {format}
-              </option>
-            ))}
-          </select>
-          <button type="submit">Convert...</button>
-        </form>
+        <ModeSelector />
+        <ConvertForm />
       </main>
       <footer>
         <p>warning: this video converter lacks hardware acceleration</p>
