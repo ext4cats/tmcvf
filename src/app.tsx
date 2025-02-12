@@ -1,6 +1,5 @@
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { FormEvent, useEffect, useRef, useState } from 'react';
-import styles from './app.module.css';
 
 type AppState = 'loading' | 'idle' | 'working';
 
@@ -43,24 +42,24 @@ export default function App() {
   };
 
   return (
-    <div className={styles.container}>
-      <header className={styles.header}>
+    <div>
+      <header>
         <h1>tmcvf</h1>
         <p>A tiny video converter powered by ffmpeg.wasm</p>
       </header>
       <main>
         {state === 'loading' ? (
-          <div className={styles.progressbar}>
+          <div>
             <label htmlFor="loadingbar">Loading...</label>
             <progress id="loadingbar" />
           </div>
         ) : state === 'working' ? (
-          <div className={styles.progressbar}>
+          <div>
             <label htmlFor="workingbar">Transcoding...</label>
             <progress id="workingbar" />
           </div>
         ) : (
-          <form className={styles.form} onSubmit={onSubmit}>
+          <form onSubmit={onSubmit}>
             <label htmlFor="file">Input:</label>
             <input id="file" type="file" name="file" />
             <label htmlFor="format">Format:</label>
@@ -71,12 +70,10 @@ export default function App() {
                 </option>
               ))}
             </select>
-            <button className={styles.submit} type="submit">
-              Convert...
-            </button>
+            <button type="submit">Convert...</button>
           </form>
         )}
-        <footer className={styles.footer}>
+        <footer>
           <p>
             warning: this converter lacks hardware acceleration, and as such, is
             very CPU intensive. for heavier workloads, please{' '}
