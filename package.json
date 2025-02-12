@@ -12,8 +12,7 @@
     "lint": "eslint --fix .",
     "format": "prettier --write .",
     "clean": "pnpm lint; pnpm format",
-    "preview": "vite preview",
-    "install-workers": "./install-workers.sh"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@ffmpeg/ffmpeg": "^0.12.15",
