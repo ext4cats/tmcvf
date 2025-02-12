@@ -9,13 +9,23 @@ export default function App() {
   useEffect(() => {
     const ffmpeg = ffmpegRef.current;
     const cdn = 'https://unpkg.com/@ffmpeg/core-mt@0.12.6/dist/esm';
-    ffmpeg
-      .load({
-        coreURL: `${cdn}/ffmpeg-core.js`,
-        wasmURL: `${cdn}/ffmpeg-core.wasm`,
-        workerURL: '/ffmpeg-core.worker.js',
+    fetch(`${cdn}/ffmpeg-core.worker.js`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('failed to fetch worker');
+        } else {
+          return res.blob();
+        }
       })
-      .then(() => setState('idle'));
+      .then((workerURL) =>
+        ffmpeg
+          .load({
+            coreURL: `${cdn}/ffmpeg-core.js`,
+            wasmURL: `${cdn}/ffmpeg-core.wasm`,
+            workerURL: URL.createObjectURL(workerURL),
+          })
+          .then(() => setState('idle')),
+      );
   }, []);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
