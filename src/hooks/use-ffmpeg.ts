@@ -1,11 +1,6 @@
 import { FFMessageLoadConfig, FFmpeg } from '@ffmpeg/ffmpeg';
 import { useRef, useState } from 'react';
 
-export type FFmpegState = 'unloaded' | 'loading' | 'idle' | 'working';
-const coreCDN = 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/esm';
-const coreMtCDN =
-  'https://cdn.jsdelivr.net/npm/@ffmpeg/core-mt@0.12.9/dist/esm';
-
 export function useFFmpeg() {
   const [state, setState] = useState<FFmpegState>('unloaded');
   const ffmpegRef = useRef<FFmpeg | null>(null);
@@ -23,7 +18,7 @@ export function useFFmpeg() {
       ffmpegRef.current = ffmpeg;
     }
 
-    if (mt && coreRef.current === null) {
+    if (!mt && coreRef.current === null) {
       const [coreURL, wasmURL] = await Promise.all([
         fetchBlob(`${coreCDN}/ffmpeg-core.js`),
         fetchBlob(`${coreCDN}/ffmpeg-core.wasm`),
@@ -31,7 +26,7 @@ export function useFFmpeg() {
       coreRef.current = { coreURL, wasmURL };
     }
 
-    if (!mt && coreMtRef.current === null) {
+    if (mt && coreMtRef.current === null) {
       const [coreURL, wasmURL, workerURL] = await Promise.all([
         fetchBlob(`${coreMtCDN}/ffmpeg-core.js`),
         fetchBlob(`${coreMtCDN}/ffmpeg-core.wasm`),
@@ -47,31 +42,25 @@ export function useFFmpeg() {
   };
 
   const transpile = async (file: File, format: TargetFormat) => {
-    if (ffmpegRef.current === null || !ffmpegRef.current.loaded)
+    const ffmpeg = ffmpegRef.current;
+    if (ffmpeg === null || !ffmpeg.loaded)
       throw new Error('ffmpeg is not loaded');
-    const lastDot = file.name.lastIndexOf('.');
-    const basename = lastDot !== -1 ? file.name.slice(0, lastDot) : file.name;
+
     const arrayBuf = await file.arrayBuffer();
     const inputBytes = new Uint8Array(arrayBuf);
-    await ffmpegRef.current.writeFile(file.name, inputBytes);
-    await ffmpegRef.current.exec(['-i', file.name, `${basename}.${format}`]);
-    const outputBytes = await ffmpegRef.current.readFile(
-      `${basename}.${format}`,
-    );
-    return new File([outputBytes], `${basename}.${format}`, {
-      type: supportedTypes[format],
-    });
+    await ffmpeg.writeFile(file.name, inputBytes);
+
+    const lastDot = file.name.lastIndexOf('.');
+    const basename = lastDot !== -1 ? file.name.slice(0, lastDot) : file.name;
+    await ffmpeg.exec(['-i', file.name, `${basename}.${format}`]);
+
+    const type = supportedTypes[format];
+    const outputBytes = await ffmpeg.readFile(`${basename}.${format}`);
+    return new File([outputBytes], `${basename}.${format}`, { type });
   };
 
   return { state, load, transpile };
 }
-
-export type TargetFormat = keyof typeof supportedTypes;
-const supportedTypes = {
-  mkv: 'video/x-matroska',
-  webm: 'video/webm',
-  mp4: 'video/mp4',
-} as const;
 
 async function fetchBlob(url: string) {
   const response = await fetch(url);
@@ -79,3 +68,15 @@ async function fetchBlob(url: string) {
   const blob = await response.blob();
   return URL.createObjectURL(blob);
 }
+
+export type FFmpegState = 'unloaded' | 'loading' | 'idle' | 'working';
+const coreCDN = 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/esm';
+const coreMtCDN =
+  'https://cdn.jsdelivr.net/npm/@ffmpeg/core-mt@0.12.9/dist/esm';
+
+export type TargetFormat = keyof typeof supportedTypes;
+const supportedTypes = {
+  mkv: 'video/x-matroska',
+  webm: 'video/webm',
+  mp4: 'video/mp4',
+} as const;
