@@ -75,7 +75,7 @@ const coreMtCDN =
   'https://cdn.jsdelivr.net/npm/@ffmpeg/core-mt@0.12.9/dist/esm';
 
 export type TargetFormat = keyof typeof supportedTypes;
-const supportedTypes = {
+export const supportedTypes = {
   mkv: 'video/x-matroska',
   webm: 'video/webm',
   mp4: 'video/mp4',
