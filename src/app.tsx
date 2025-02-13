@@ -22,6 +22,8 @@ export default function App() {
           <a
             className="text-indigo-700 hover:underline"
             href="https://www.ffmpeg.org/download.html"
+            target="_blank"
+            rel="noreferrer"
           >
             native ffmpeg
           </a>{' '}
@@ -29,6 +31,8 @@ export default function App() {
           <a
             className="text-indigo-700 hover:underline"
             href="https://handbrake.fr/"
+            target="_blank"
+            rel="noreferrer"
           >
             handbrake
           </a>{' '}
