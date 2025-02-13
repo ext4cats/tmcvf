@@ -1,4 +1,5 @@
 import ConverterForm from './components/ConverterForm';
+import ProgressBar from './components/ProgressBar';
 
 export default function App() {
   return (
@@ -10,6 +11,12 @@ export default function App() {
       <main>
         <ConverterForm
           onSubmit={(values) => window.alert(JSON.stringify(values, null, 2))}
+        />
+        <ProgressBar
+          message="Working..."
+          onCancel={() =>
+            window.alert('You have been cancelled on twitter dot com')
+          }
         />
       </main>
       <footer>
