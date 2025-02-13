@@ -25,40 +25,86 @@ export default function ConverterForm(props: ConverterFormProps) {
 
   return (
     <form onSubmit={onSubmit}>
-      <fieldset>
-        <legend>Select a processing mode:</legend>
-        <label htmlFor="single-thread">Single-thread</label>
-        <input
-          required
-          type="radio"
-          name="processing-mode"
-          id="single-thread"
-          value="single-thread"
-          defaultChecked
-        />
-        <label htmlFor="multi-thread">Multi-thread</label>
-        <input
-          required
-          type="radio"
-          name="processing-mode"
-          id="multi-thread"
-          value="multi-thread"
-        />
+      <fieldset className="my-8">
+        <legend className="text-neutral-600 mb-4">
+          Select a processing mode
+        </legend>
+        <div className="flex gap-8 justify-center">
+          <label
+            className="flex gap-2 hover:cursor-pointer"
+            htmlFor="single-thread"
+          >
+            <input
+              required
+              className="hover:cursor-pointer"
+              type="radio"
+              name="processing-mode"
+              id="single-thread"
+              value="single-thread"
+              defaultChecked
+            />
+            Single-thread
+          </label>
+          <label
+            className="flex gap-2 hover:cursor-pointer"
+            htmlFor="multi-thread"
+          >
+            <input
+              required
+              className="hover:cursor-pointer"
+              type="radio"
+              name="processing-mode"
+              id="multi-thread"
+              value="multi-thread"
+            />
+            Multi-thread
+          </label>
+        </div>
       </fieldset>
-      <fieldset>
-        <legend>Choose what to convert:</legend>
-        <label htmlFor="target-file">Target file:</label>
-        <input required type="file" name="target-file" id="target-file" />
-        <label htmlFor="target-format">Target format:</label>
-        <select required name="target-format" id="target-format">
-          <option value="mp4">mp4</option>
-          <option value="webm">webm</option>
-          <option value="avi">avi</option>
-          <option value="mkv">mkv</option>
-          <option value="mov">mov</option>
-        </select>
+      <fieldset className="my-8">
+        <legend className="text-neutral-600 mb-4">
+          Choose what to convert
+        </legend>
+        <div className="grid items-end grid-cols-[max-content_auto] gap-4">
+          <label
+            className="justify-self-end text-neutral-600 hover:cursor-pointer text-sm"
+            htmlFor="target-file"
+          >
+            Target file
+          </label>
+          <input
+            required
+            className="border-b border-neutral-600 border-dotted hover:border-solid hover:cursor-pointer file:hidden"
+            type="file"
+            name="target-file"
+            id="target-file"
+          />
+          <label
+            className="justify-self-end text-neutral-600 hover:cursor-pointer text-sm"
+            htmlFor="target-format"
+          >
+            Target format
+          </label>
+          <select
+            required
+            className="border-b border-neutral-600 border-dotted hover:border-solid hover:cursor-pointer"
+            name="target-format"
+            id="target-format"
+          >
+            <option value="mp4">mp4</option>
+            <option value="webm">webm</option>
+            <option value="avi">avi</option>
+            <option value="mkv">mkv</option>
+            <option value="mov">mov</option>
+          </select>
+        </div>
       </fieldset>
-      <button type="submit">Convert...</button>
+      <button
+        className="px-16 border-b border-neutral-600 border-dotted hover:border-solid hover:cursor-pointer"
+        type="submit"
+      >
+        Convert...
+      </button>
     </form>
   );
 }
