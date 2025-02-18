@@ -50,7 +50,11 @@ export function useConverter() {
 
     const lastDot = file.name.lastIndexOf('.');
     const basename = lastDot !== -1 ? file.name.slice(0, lastDot) : file.name;
-    await ffmpeg.exec(['-i', file.name, `${basename}.${format}`]);
+
+    const baseOptions = ['-i', file.name, '-preset', 'ultrafast'];
+    if (format === 'webm')
+      baseOptions.push(...['-c:v', 'libvpx', '-c:a', 'libvorbis']);
+    await ffmpeg.exec([...baseOptions, `${basename}.${format}`]);
 
     const outputBytes = await ffmpeg.readFile(`${basename}.${format}`);
     const outputFile = new File([outputBytes], `${basename}.${format}`, {
