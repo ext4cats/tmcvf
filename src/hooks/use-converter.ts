@@ -7,16 +7,18 @@ export function useConverter() {
   const stConfigRef = useRef<FFMessageLoadConfig | null>(null);
   const mtConfigRef = useRef<FFMessageLoadConfig | null>(null);
   const [state, setState] = useState<'idle' | 'busy'>('idle');
+  const [error, setError] = useState<unknown>(null);
   const [message, setMessage] = useState('');
   const [progress, setProgress] = useState(0);
 
-  const convert = async (
+  const innerConvert = async (
     file: File,
     format: SupportedFormat,
     mode: ProcessingMode,
   ) => {
     setMessage('Loading libraries...');
     setProgress(0);
+    setError(null);
     setState('busy');
 
     if (ffmpegRef.current === null) {
@@ -71,6 +73,20 @@ export function useConverter() {
     setState('idle');
   };
 
+  const convert = async (
+    file: File,
+    format: SupportedFormat,
+    mode: ProcessingMode,
+  ) => {
+    try {
+      await innerConvert(file, format, mode);
+    } catch (err) {
+      if (err instanceof Error && err.message === 'called FFmpeg.terminate()')
+        return;
+      setError(err);
+    }
+  };
+
   const cancel = () => {
     ffmpegRef.current?.terminate();
     setState('idle');
@@ -78,7 +94,7 @@ export function useConverter() {
 
   return state === 'idle'
     ? { state, convert }
-    : { state, message, progress, cancel };
+    : { state, message, progress, error, cancel };
 }
 
 const cdnSt = 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/esm';

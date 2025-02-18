@@ -26,6 +26,7 @@ export default function App() {
           <ProgressBar
             message={converter.message}
             progress={converter.progress}
+            error={converter.error}
             onCancel={converter.cancel}
           />
         )}
