@@ -1,6 +1,8 @@
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 
 export default function ConverterForm(props: ConverterFormProps) {
+  const [mode, setMode] = useState<ProcessingMode>('single-thread');
+  const shouldWarn = mode === 'multi-thread' && !isFirefox;
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -41,7 +43,8 @@ export default function ConverterForm(props: ConverterFormProps) {
               name="processing-mode"
               id="single-thread"
               value="single-thread"
-              defaultChecked
+              checked={mode === 'single-thread'}
+              onChange={() => setMode('single-thread')}
             />
             Single-thread
           </label>
@@ -56,6 +59,8 @@ export default function ConverterForm(props: ConverterFormProps) {
               name="processing-mode"
               id="multi-thread"
               value="multi-thread"
+              checked={mode === 'multi-thread'}
+              onChange={() => setMode('multi-thread')}
             />
             Multi-thread
           </label>
@@ -99,6 +104,25 @@ export default function ConverterForm(props: ConverterFormProps) {
           </select>
         </div>
       </fieldset>
+      {shouldWarn && (
+        <div
+          role="alert"
+          className="my-8 p-2 text-sm bg-red-100 text-red-800 border-b border-dotted border-red-800"
+        >
+          <p>
+            Multi-threading{' '}
+            <a
+              className="underline"
+              href="https://github.com/ffmpegwasm/ffmpeg.wasm/issues/597"
+              target="_blank"
+              rel="noreferrer"
+            >
+              has issues
+            </a>{' '}
+            on non-Firefox browsers. Your mileage may vary.
+          </p>
+        </div>
+      )}
       <button
         className="px-16 border-b border-neutral-600 border-dotted hover:border-solid hover:cursor-pointer"
         type="submit"
@@ -128,3 +152,7 @@ const isSupportedFormat = (x: string): x is SupportedFormat =>
   supportedFormats.includes(x as SupportedFormat);
 const isProcessingMode = (x: string): x is ProcessingMode =>
   processingModes.includes(x as ProcessingMode);
+
+const isFirefox =
+  navigator.userAgent.includes('Firefox') &&
+  !navigator.userAgent.includes('Seamonkey');
