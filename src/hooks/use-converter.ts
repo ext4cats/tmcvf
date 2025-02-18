@@ -3,11 +3,13 @@ import { useRef, useState } from 'react';
 import { ProcessingMode, SupportedFormat } from '../components/converter-form';
 
 export function useConverter() {
+  const ffmpegRef = useRef<FFmpeg | null>(null);
   const stConfigRef = useRef<FFMessageLoadConfig | null>(null);
   const mtConfigRef = useRef<FFMessageLoadConfig | null>(null);
   const [state, setState] = useState<'idle' | 'busy'>('idle');
   const [message, setMessage] = useState('');
   const [progress, setProgress] = useState(0);
+
   const convert = async (
     file: File,
     format: SupportedFormat,
@@ -17,9 +19,14 @@ export function useConverter() {
     setProgress(0);
     setState('busy');
 
-    const ffmpeg = new FFmpeg();
-    ffmpeg.on('log', (event) => console.log(event.message));
-    ffmpeg.on('progress', (event) => setProgress(event.progress));
+    if (ffmpegRef.current === null) {
+      const ffmpeg = new FFmpeg();
+      ffmpeg.on('log', (event) => console.log(event.message));
+      ffmpeg.on('progress', (event) => setProgress(event.progress));
+      ffmpegRef.current = ffmpeg;
+    }
+
+    const ffmpeg = ffmpegRef.current;
 
     if (mode === 'single-thread') {
       if (stConfigRef.current === null)
@@ -64,7 +71,14 @@ export function useConverter() {
     setState('idle');
   };
 
-  return state === 'idle' ? { state, convert } : { state, message, progress };
+  const cancel = () => {
+    ffmpegRef.current?.terminate();
+    setState('idle');
+  };
+
+  return state === 'idle'
+    ? { state, convert }
+    : { state, message, progress, cancel };
 }
 
 const cdnSt = 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/esm';
