@@ -4,7 +4,7 @@ export default function ProgressBar(props: ProgressBarProps) {
   return (
     <section className="text-center">
       <label htmlFor="progress">{props.message}</label>
-      <progress id="progress" value={props.progress?.toString()} />
+      <progress id="progress" value={props.progress} />
       <button
         className="px-16 border-b border-neutral-600 border-dotted hover:border-solid hover:cursor-pointer"
         type="button"
@@ -18,6 +18,6 @@ export default function ProgressBar(props: ProgressBarProps) {
 
 export interface ProgressBarProps {
   readonly message: string;
-  readonly progress?: number;
+  readonly progress: number;
   readonly onCancel: () => void;
 }

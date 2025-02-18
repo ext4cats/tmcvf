@@ -1,7 +1,12 @@
 import './app.css';
+import ConverterForm, {
+  ConverterFormValues,
+} from './components/converter-form';
 import ProgressBar from './components/progress-bar';
+import { useConverter } from './hooks/use-converter';
 
 export default function App() {
+  const converter = useConverter();
   return (
     <div className="max-w-xl mx-auto px-4 text-center">
       <header className="mt-24">
@@ -11,11 +16,19 @@ export default function App() {
         </p>
       </header>
       <main className="my-16">
-        <ProgressBar
-          message="Working..."
-          onCancel={() => window.alert('cancelled on twitter')}
-          progress={0}
-        />
+        {converter.state === 'idle' ? (
+          <ConverterForm
+            onSubmit={(values: ConverterFormValues) =>
+              converter.convert(values.file, values.format, values.mode)
+            }
+          />
+        ) : (
+          <ProgressBar
+            message={converter.message}
+            progress={converter.progress}
+            onCancel={() => window.alert('nope')}
+          />
+        )}
       </main>
       <footer>
         <p className="text-sm text-neutral-600">
