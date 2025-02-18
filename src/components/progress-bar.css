@@ -4,8 +4,8 @@
   margin: calc(var(--spacing) * 8) 0;
   background: repeating-linear-gradient(
     -45deg,
-    rgba(0, 0, 0, 0.05),
-    rgba(0, 0, 0, 0.05) 10px,
+    var(--color-neutral-100),
+    var(--color-neutral-100) 10px,
     transparent 10px,
     transparent 20px
   );
@@ -16,9 +16,9 @@
 }
 
 #progress::-webkit-progress-value {
-  background-color: black;
+  background-color: var(--color-neutral-800);
 }
 
 #progress::-moz-progress-bar {
-  background-color: black;
+  background-color: var(--color-neutral-800);
 }

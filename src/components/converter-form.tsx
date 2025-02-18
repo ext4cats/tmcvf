@@ -70,29 +70,29 @@ export default function ConverterForm(props: ConverterFormProps) {
         <legend className="text-neutral-600 mb-4">
           Choose what to convert
         </legend>
-        <div className="grid items-end grid-cols-[max-content_auto] gap-4">
+        <div className="grid items-center grid-cols-[max-content_auto] gap-4">
           <label
-            className="justify-self-end text-neutral-600 hover:cursor-pointer text-sm"
+            className="text-neutral-600 hover:cursor-pointer text-sm"
             htmlFor="target-file"
           >
             Target file
           </label>
           <input
             required
-            className="border-b border-neutral-600 border-dotted hover:border-solid hover:cursor-pointer file:hidden"
+            className="bg-neutral-50 py-1 px-4 border-b border-dotted hover:border-solid hover:cursor-pointer file:hidden"
             type="file"
             name="target-file"
             id="target-file"
           />
           <label
-            className="justify-self-end text-neutral-600 hover:cursor-pointer text-sm"
+            className="text-neutral-600 hover:cursor-pointer text-sm"
             htmlFor="target-format"
           >
             Target format
           </label>
           <select
             required
-            className="border-b border-neutral-600 border-dotted hover:border-solid hover:cursor-pointer"
+            className="bg-neutral-50 py-1 px-4 border-b border-dotted hover:border-solid hover:cursor-pointer"
             name="target-format"
             id="target-format"
           >
@@ -124,7 +124,7 @@ export default function ConverterForm(props: ConverterFormProps) {
         </div>
       )}
       <button
-        className="px-16 border-b border-neutral-600 border-dotted hover:border-solid hover:cursor-pointer"
+        className="px-16 border-b bg-neutral-50 py-2 border-dotted hover:border-solid hover:cursor-pointer"
         type="submit"
       >
         Convert...
