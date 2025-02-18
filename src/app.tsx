@@ -1,5 +1,5 @@
 import './app.css';
-import ConverterForm from './components/converter-form';
+import ProgressBar from './components/progress-bar';
 
 export default function App() {
   return (
@@ -11,8 +11,10 @@ export default function App() {
         </p>
       </header>
       <main className="my-16">
-        <ConverterForm
-          onSubmit={(values) => window.alert(JSON.stringify(values, null, 2))}
+        <ProgressBar
+          message="Working..."
+          onCancel={() => window.alert('cancelled on twitter')}
+          progress={0}
         />
       </main>
       <footer>

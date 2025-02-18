@@ -1,9 +1,15 @@
+import './progress-bar.css';
+
 export default function ProgressBar(props: ProgressBarProps) {
   return (
-    <section>
+    <section className="text-center">
       <label htmlFor="progress">{props.message}</label>
-      <progress id="progress" value={props.progress} />
-      <button type="button" onClick={props.onCancel}>
+      <progress id="progress" value={props.progress?.toString()} />
+      <button
+        className="px-16 border-b border-neutral-600 border-dotted hover:border-solid hover:cursor-pointer"
+        type="button"
+        onClick={props.onCancel}
+      >
         Cancel
       </button>
     </section>
