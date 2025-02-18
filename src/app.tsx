@@ -31,17 +31,18 @@ export default function App() {
           />
         )}
       </main>
-      <footer>
-        <p className="text-sm text-neutral-600">
-          warning: this video converter has no hardware acceleration, and as
-          such is both slow and cpu intensive. please use either{' '}
+      <footer className="text-sm text-neutral-600">
+        <p>
+          Video conversion runs 100% off your browser — no data is uploaded to
+          any server. Which also means conversion is very CPU intensive. For
+          heavier workloads, please install either{' '}
           <a
             className="text-indigo-700 hover:underline"
             href="https://www.ffmpeg.org/download.html"
             target="_blank"
             rel="noreferrer"
           >
-            native ffmpeg
+            FFmpeg
           </a>{' '}
           or{' '}
           <a
@@ -50,9 +51,9 @@ export default function App() {
             target="_blank"
             rel="noreferrer"
           >
-            handbrake
-          </a>{' '}
-          for heavier workloads.
+            Handbrake
+          </a>
+          . They can make use of hardware acceleration for speedier conversions.
         </p>
       </footer>
     </div>
