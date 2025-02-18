@@ -84,6 +84,7 @@ export function useConverter() {
       if (err instanceof Error && err.message === 'called FFmpeg.terminate()')
         return;
       setError(err);
+      console.error(err);
     }
   };
 
