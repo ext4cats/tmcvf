@@ -51,7 +51,7 @@ export function useConverter() {
     const lastDot = file.name.lastIndexOf('.');
     const basename = lastDot !== -1 ? file.name.slice(0, lastDot) : file.name;
 
-    const baseOptions = ['-i', file.name, '-preset', 'ultrafast', '-crf', '23'];
+    const baseOptions = ['-i', file.name];
     if (format === 'webm')
       baseOptions.push(...['-c:v', 'libvpx', '-c:a', 'libvorbis']);
     await ffmpeg.exec([...baseOptions, `${basename}.${format}`]);
