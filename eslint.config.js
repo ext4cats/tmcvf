@@ -10,7 +10,11 @@ export default tseslint.config(
   {
     files: ['**/*.{ts,tsx}'],
     settings: { react: { version: '18.3' } },
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    extends: [
+      js.configs.recommended,
+      ...tseslint.configs.recommended,
+      ...tseslint.configs.stylistic,
+    ],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
