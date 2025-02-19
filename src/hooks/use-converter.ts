@@ -53,7 +53,7 @@ export function useConverter() {
 
     const baseOptions = ['-i', file.name];
     if (format === 'webm')
-      baseOptions.push(...['-c:v', 'libvpx', '-c:a', 'libvorbis']);
+      baseOptions.push('-c:v', 'libvpx', '-c:a', 'libvorbis');
     await ffmpeg.exec([...baseOptions, `${basename}.${format}`]);
 
     const outputBytes = await ffmpeg.readFile(`${basename}.${format}`);
