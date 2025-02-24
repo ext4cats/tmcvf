@@ -1,10 +1,25 @@
-import './progress-bar.css';
-
 export default function ProgressBar(props: ProgressBarProps) {
+  const normalizedProgress = Math.min(100, Math.max(0, props.progress * 100));
   return (
     <section className="block text-center">
-      <label htmlFor="progress">{props.message}</label>
-      <progress id="progress" value={props.progress} />
+      <label id="progress-label" htmlFor="progress">
+        {props.message}
+      </label>
+      <div
+        role="progressbar"
+        aria-valuenow={normalizedProgress}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-labelledby="progress-label"
+        id="progress"
+        className="w-full h-4 my-8 bg-[repeating-linear-gradient(-45deg,var(--color-neutral-100),var(--color-neutral-100)_10px,transparent_10px,transparent_20px)]"
+      >
+        <div
+          className="h-full bg-neutral-800"
+          style={{ width: `${normalizedProgress}%` }}
+        />
+        <span className="sr-only">{normalizedProgress}% complete</span>
+      </div>
       {Boolean(props.error) && (
         <div
           role="alert"
