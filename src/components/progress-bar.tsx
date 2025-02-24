@@ -12,7 +12,7 @@ export default function ProgressBar(props: ProgressBarProps) {
         aria-valuemax={100}
         aria-labelledby="progress-label"
         id="progress"
-        className="w-full h-4 my-8 bg-[repeating-linear-gradient(-45deg,var(--color-neutral-100),var(--color-neutral-100)_10px,transparent_10px,transparent_20px)]"
+        className="w-full h-4 my-12 bg-[repeating-linear-gradient(-45deg,var(--color-neutral-100),var(--color-neutral-100)_10px,transparent_10px,transparent_20px)]"
       >
         <div
           className="h-full bg-neutral-800"
