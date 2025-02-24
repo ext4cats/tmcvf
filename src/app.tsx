@@ -6,18 +6,18 @@ import { useConverter } from './hooks/use-converter';
 
 export default function App() {
   const converter = useConverter();
-  return converter.state === 'idle' ? (
-    <ConverterForm
-      onSubmit={(values: ConverterFormValues) =>
-        converter.convert(values.file, values.format, values.mode)
-      }
-    />
-  ) : (
+  return converter.state === 'busy' ? (
     <ProgressBar
       message={converter.message}
       progress={converter.progress}
       error={converter.error}
       onCancel={converter.cancel}
+    />
+  ) : (
+    <ConverterForm
+      onSubmit={(values: ConverterFormValues) =>
+        converter.convert(values.file, values.format, values.mode)
+      }
     />
   );
 }
