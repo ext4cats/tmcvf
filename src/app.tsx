@@ -6,55 +6,18 @@ import { useConverter } from './hooks/use-converter';
 
 export default function App() {
   const converter = useConverter();
-  return (
-    <div className="max-w-xl mx-auto px-4 text-center">
-      <header className="mt-24">
-        <h1 className="text-4xl mb-2">tmcvf</h1>
-        <p className="text-neutral-600">
-          a tiny video converter powered by ffmpeg.wasm
-        </p>
-      </header>
-      <main className="my-16">
-        {converter.state === 'idle' ? (
-          <ConverterForm
-            onSubmit={(values: ConverterFormValues) =>
-              converter.convert(values.file, values.format, values.mode)
-            }
-          />
-        ) : (
-          <ProgressBar
-            message={converter.message}
-            progress={converter.progress}
-            error={converter.error}
-            onCancel={converter.cancel}
-          />
-        )}
-      </main>
-      <footer className="text-sm text-neutral-600">
-        <p>
-          Video conversion runs 100% off your browser — no data is uploaded to
-          any server. Which also means conversion is very CPU intensive. For
-          heavier workloads, please install either{' '}
-          <a
-            className="text-indigo-700 hover:underline"
-            href="https://www.ffmpeg.org/download.html"
-            target="_blank"
-            rel="noreferrer"
-          >
-            FFmpeg
-          </a>{' '}
-          or{' '}
-          <a
-            className="text-indigo-700 hover:underline"
-            href="https://handbrake.fr/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Handbrake
-          </a>
-          . They can make use of hardware acceleration for speedier conversions.
-        </p>
-      </footer>
-    </div>
+  return converter.state === 'idle' ? (
+    <ConverterForm
+      onSubmit={(values: ConverterFormValues) =>
+        converter.convert(values.file, values.format, values.mode)
+      }
+    />
+  ) : (
+    <ProgressBar
+      message={converter.message}
+      progress={converter.progress}
+      error={converter.error}
+      onCancel={converter.cancel}
+    />
   );
 }
