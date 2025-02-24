@@ -1,4 +1,3 @@
-import './app.css';
 import ConverterForm, {
   ConverterFormValues,
 } from './components/converter-form';
