@@ -64,10 +64,10 @@ export function useConverter() {
     setMessage('Starting download...');
 
     const downloadUrl = URL.createObjectURL(outputFile);
-    const donwloadAnchor = document.createElement('a');
-    donwloadAnchor.href = downloadUrl;
-    donwloadAnchor.download = outputFile.name;
-    donwloadAnchor.click();
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.href = downloadUrl;
+    downloadAnchor.download = outputFile.name;
+    downloadAnchor.click();
     URL.revokeObjectURL(downloadUrl);
 
     setMessage('Cleaning up...');
