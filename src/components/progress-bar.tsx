@@ -17,7 +17,7 @@ export default function ProgressBar(props: ProgressBarProps) {
         </div>
       )}
       <button
-        className="px-16 border-b bg-neutral-50 py-2 border-dotted hover:border-solid hover:cursor-pointer"
+        className="px-16 border-b bg-neutral-50 py-1 border-dotted hover:border-solid hover:cursor-pointer"
         type="button"
         onClick={props.onCancel}
       >
