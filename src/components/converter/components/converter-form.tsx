@@ -4,6 +4,7 @@ export default function ConverterForm(props: ConverterFormProps) {
   const [mode, setMode] = useState<ProcessingMode>('single-thread');
 
   const isFirefox =
+    typeof navigator !== 'undefined' &&
     navigator.userAgent.includes('Firefox') &&
     !navigator.userAgent.includes('Seamonkey');
   const shouldWarn = mode === 'multi-thread' && !isFirefox;
