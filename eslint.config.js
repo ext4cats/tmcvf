@@ -6,7 +6,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist'] },
+  { ignores: ['dist', '.astro'] },
   {
     files: ['**/*.{ts,tsx}'],
     settings: { react: { version: '18.3' } },
