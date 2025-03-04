@@ -2,7 +2,12 @@ import { type FormEvent, useState } from 'react';
 
 export default function ConverterForm(props: ConverterFormProps) {
   const [mode, setMode] = useState<ProcessingMode>('single-thread');
-  const shouldWarn = mode === 'multi-thread' && !isFirefox;
+
+  const shouldWarn =
+    mode === 'multi-thread' &&
+    navigator.userAgent.includes('Firefox') &&
+    !navigator.userAgent.includes('Seamonkey');
+
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -152,7 +157,3 @@ const isSupportedFormat = (x: string): x is SupportedFormat =>
   supportedFormats.includes(x as SupportedFormat);
 const isProcessingMode = (x: string): x is ProcessingMode =>
   processingModes.includes(x as ProcessingMode);
-
-const isFirefox =
-  navigator.userAgent.includes('Firefox') &&
-  !navigator.userAgent.includes('Seamonkey');
