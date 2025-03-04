@@ -1,10 +1,10 @@
 import ConverterForm, {
-  ConverterFormValues,
+  type ConverterFormValues,
 } from './components/converter-form';
 import ProgressBar from './components/progress-bar';
 import { useConverter } from './hooks/use-converter';
 
-export default function App() {
+export default function Converter() {
   const converter = useConverter();
   return converter.state === 'busy' ? (
     <ProgressBar

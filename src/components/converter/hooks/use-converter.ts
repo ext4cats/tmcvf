@@ -1,6 +1,9 @@
-import { FFMessageLoadConfig, FFmpeg } from '@ffmpeg/ffmpeg';
+import { type FFMessageLoadConfig, FFmpeg } from '@ffmpeg/ffmpeg';
 import { useRef, useState } from 'react';
-import { ProcessingMode, SupportedFormat } from '../components/converter-form';
+import type {
+  ProcessingMode,
+  SupportedFormat,
+} from '../components/converter-form';
 
 export function useConverter() {
   const ffmpegRef = useRef<FFmpeg | null>(null);

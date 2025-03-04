@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { type FormEvent, useState } from 'react';
 
 export default function ConverterForm(props: ConverterFormProps) {
   const [mode, setMode] = useState<ProcessingMode>('single-thread');

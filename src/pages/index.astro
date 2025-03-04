@@ -1,20 +1,24 @@
+---
+import Converter from '../components/converter';
+import './src/styles/global.css';
+---
+
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="/src/main.css" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="A tiny video converter powered by ffmpeg.wasm. Video conversion runs 100% off your browser — no data is uploaded to any server."
-    />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="this machine converts video formats" />
     <meta property="og:url" content="https://tmcvf.farmarrays.com" />
     <meta
       property="og:description"
+      content="A tiny video converter powered by ffmpeg.wasm. Video conversion runs 100% off your browser — no data is uploaded to any server."
+    />
+    <meta
+      name="description"
       content="A tiny video converter powered by ffmpeg.wasm. Video conversion runs 100% off your browser — no data is uploaded to any server."
     />
     <title>this machine converts video formats</title>
@@ -27,10 +31,8 @@
           A tiny video converter powered by ffmpeg.wasm
         </p>
       </header>
-      <main id="root" class="my-16">
-        <noscript>
-          <p>This web page requires JavaScript to run.</p>
-        </noscript>
+      <main class="my-16">
+        <Converter client:load />
       </main>
       <footer class="text-sm text-neutral-600">
         <p>
@@ -39,15 +41,13 @@
             class="text-indigo-700 hover:underline"
             href="https://farmarrays.com"
             target="_blank"
-            rel="noreferrer"
-            >ext4cats</a
+            rel="noreferrer">ext4cats</a
           >. Read the source on
           <a
             class="text-indigo-700 hover:underline"
             href="https://github.com/ext4cats/tmcvf"
             target="_blank"
-            rel="noreferrer"
-            >GitHub</a
+            rel="noreferrer">GitHub</a
           >.
         </p>
         <p>
@@ -56,13 +56,11 @@
             class="text-indigo-700 hover:underline"
             href="https://handbrake.fr/"
             target="_blank"
-            rel="noreferrer"
-            >HandBrake</a
+            rel="noreferrer">HandBrake</a
           >
           — it's hardware accelerated!
         </p>
       </footer>
     </div>
-    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
