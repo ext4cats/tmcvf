@@ -80,19 +80,17 @@ export function useConverter() {
     setState('idle');
   };
 
-  const convert = async (
+  const convert = (
     file: File,
     format: SupportedFormat,
     mode: ProcessingMode,
   ) => {
-    try {
-      await innerConvert(file, format, mode);
-    } catch (err) {
+    innerConvert(file, format, mode).catch((err) => {
       if (err instanceof Error && err.message === 'called FFmpeg.terminate()')
         return;
       setError(err);
       console.error(err);
-    }
+    });
   };
 
   const cancel = () => {
