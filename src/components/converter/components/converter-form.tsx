@@ -22,7 +22,7 @@ export default function ConverterForm(props: ConverterFormProps) {
     if (!isProcessingMode(mode))
       throw new Error(`processing-mode: invalid value: ${mode}`);
     if (typeof format !== 'string')
-      throw new Error(`target-format: expected string, got ${format}`);
+      throw new Error(`target-format: expected string, got ${typeof format}`);
     if (!isSupportedFormat(format))
       throw new Error(`target-format: invalid value: ${format}`);
     if (!(file instanceof File))
