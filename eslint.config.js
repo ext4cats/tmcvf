@@ -9,7 +9,7 @@ export default tseslint.config(
   { ignores: ['dist', '.astro'] },
   {
     files: ['**/*.{ts,tsx}'],
-    settings: { react: { version: '18.3' } },
+    settings: { react: { version: '19' } },
     extends: [
       js.configs.recommended,
       tseslint.configs.recommendedTypeChecked,
