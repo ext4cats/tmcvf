@@ -17,13 +17,13 @@
   "dependencies": {
     "@astrojs/react": "^4.2.1",
     "@ffmpeg/ffmpeg": "^0.12.15",
-    "@tailwindcss/vite": "^4.0.14",
-    "@types/react": "^19.0.10",
+    "@tailwindcss/vite": "^4.0.15",
+    "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
-    "astro": "^5.5.2",
+    "astro": "^5.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "tailwindcss": "^4.0.14"
+    "tailwindcss": "^4.0.15"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
@@ -34,7 +34,7 @@
     "globals": "^16.0.0",
     "prettier": "^3.5.3",
     "prettier-plugin-astro": "^0.14.1",
-    "typescript-eslint": "^8.26.1"
+    "typescript-eslint": "^8.27.0"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
