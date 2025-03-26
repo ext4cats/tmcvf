@@ -34,14 +34,12 @@ export function useConverter() {
     const ffmpeg = ffmpegRef.current;
 
     if (mode === 'single-thread') {
-      if (stConfigRef.current === null)
-        stConfigRef.current = await fetchStConfig();
+      stConfigRef.current ??= await fetchStConfig();
       await ffmpeg.load(stConfigRef.current);
     }
 
     if (mode === 'multi-thread') {
-      if (mtConfigRef.current === null)
-        mtConfigRef.current = await fetchMtConfig();
+      mtConfigRef.current ??= await fetchMtConfig();
       await ffmpeg.load(mtConfigRef.current);
     }
 
