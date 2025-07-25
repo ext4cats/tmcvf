@@ -1,19 +1,24 @@
 import js from '@eslint/js';
-import react from 'eslint-plugin-react';
+import reactDom from 'eslint-plugin-react-dom';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import reactX from 'eslint-plugin-react-x';
+import { globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
-export default tseslint.config(
-  { ignores: ['dist', '.astro'] },
+export default tseslint.config([
+  globalIgnores(['dist', '.astro']),
   {
     files: ['**/*.{ts,tsx}'],
-    settings: { react: { version: '19' } },
     extends: [
       js.configs.recommended,
       tseslint.configs.recommendedTypeChecked,
       tseslint.configs.stylisticTypeChecked,
+      reactHooks.configs['recommended-latest'],
+      reactRefresh.configs.vite,
+      reactX.configs['recommended-typescript'],
+      reactDom.configs.recommended,
     ],
     languageOptions: {
       ecmaVersion: 2020,
@@ -23,19 +28,5 @@ export default tseslint.config(
         tsconfigRootDir: import.meta.dirname,
       },
     },
-    plugins: {
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
-      react,
-    },
-    rules: {
-      ...react.configs.recommended.rules,
-      ...react.configs['jsx-runtime'].rules,
-      ...reactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
-    },
   },
-);
+]);
