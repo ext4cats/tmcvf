@@ -17,8 +17,10 @@ pnpm dev
 pnpm build
 ```
 
-## Licensing
+## Legalese
 
-This website is licensed under [AGPL](./LICENSE.txt).
+The source code of this website is licensed under [AGPL](./LICENSE.txt).
 
-The favicon is taken straight from [Twemoji](https://github.com/twitter/twemoji).
+## Credit
+
+- The favicon is taken straight from [Twemoji](https://github.com/twitter/twemoji).
