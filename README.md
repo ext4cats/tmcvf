@@ -1,26 +1,15 @@
 # this machine converts video formats
 
-A tiny video converter powered by [ffmpeg.wasm](https://github.com/ffmpegwasm/ffmpeg.wasm).
+🎞️ A tiny video converter powered by [ffmpeg.wasm](https://github.com/ffmpegwasm/ffmpeg.wasm).
 
 ## Building
 
-You will need [Node.js](https://nodejs.org) and [pnpm](https://pnpm.io) to build this project.
+You'll need a working installation of [`pnpm`](https://pnpm.io) to build the website.
 
 ```bash
 # install dependencies
-pnpm install
+pnpm i
 
-# run development server
-pnpm dev
-
-# or do a production build
+# build the website
 pnpm build
 ```
-
-## Legalese
-
-The source code of this website is licensed under [AGPL](./LICENSE.txt).
-
-## Credit
-
-- The favicon is taken straight from [Twemoji](https://github.com/twitter/twemoji).
