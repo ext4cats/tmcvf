@@ -11,7 +11,7 @@
     "build": "astro build",
     "lint": "eslint --fix .",
     "format": "prettier --write .",
-    "clean": "pnpm lint; pnpm format",
+    "autofix": "pnpm lint; pnpm format",
     "preview": "astro preview"
   },
   "dependencies": {
