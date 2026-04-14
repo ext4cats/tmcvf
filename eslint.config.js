@@ -17,7 +17,7 @@ export default defineConfig([
       tseslint.configs.stylisticTypeChecked,
       reactHooks.configs['recommended-latest'],
       reactRefresh.configs.vite,
-      reactX.configs['recommended-typescript'],
+      reactX.configs['recommended-type-checked'],
       reactDom.configs.recommended,
     ],
     languageOptions: {
