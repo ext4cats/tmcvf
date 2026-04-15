@@ -1,4 +1,4 @@
-import { type FormEvent, useState } from 'react';
+import { type SubmitEvent, useState } from 'react';
 
 export default function ConverterForm(props: ConverterFormProps) {
   const [mode, setMode] = useState<ProcessingMode>('single-thread');
@@ -9,7 +9,7 @@ export default function ConverterForm(props: ConverterFormProps) {
     !navigator.userAgent.includes('Seamonkey');
   const shouldWarn = mode === 'multi-thread' && !isFirefox;
 
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const onSubmit = (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
