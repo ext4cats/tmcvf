@@ -58,7 +58,11 @@ export function useConverter() {
     await ffmpeg.exec([...baseOptions, `${basename}.${format}`]);
 
     const outputBytes = await ffmpeg.readFile(`${basename}.${format}`);
-    const outputFile = new File([outputBytes], `${basename}.${format}`, {
+    const safeBuffer =
+      outputBytes instanceof Uint8Array
+        ? (outputBytes.buffer.slice() as ArrayBuffer)
+        : outputBytes;
+    const outputFile = new File([safeBuffer], `${basename}.${format}`, {
       type: mimeTypes[format],
     });
 
